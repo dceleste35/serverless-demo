@@ -129,8 +129,10 @@ resource "aws_api_gateway_deployment" "deployment" {
       aws_api_gateway_resource.contact.id,
       aws_api_gateway_method.hello.id,
       aws_api_gateway_method.contact.id,
+      aws_api_gateway_method.contact_get.id,
       aws_api_gateway_integration.hello.id,
-      aws_api_gateway_integration.contact.id
+      aws_api_gateway_integration.contact.id,
+      aws_api_gateway_integration.contact_get.id
     ]))
   }
 
