@@ -1,1 +1,1 @@
-# serverless-demo
+# serverless-demo v2
