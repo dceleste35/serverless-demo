@@ -86,6 +86,13 @@ resource "aws_api_gateway_method" "contact" {
   authorization = "NONE"
 }
 
+resource "aws_api_gateway_method" "contact_get" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.contact.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
 resource "aws_api_gateway_integration" "hello" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.hello.id
@@ -99,6 +106,15 @@ resource "aws_api_gateway_integration" "contact" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.contact.id
   http_method             = aws_api_gateway_method.contact.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "contact_get" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.contact.id
+  http_method             = aws_api_gateway_method.contact_get.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.api.invoke_arn
